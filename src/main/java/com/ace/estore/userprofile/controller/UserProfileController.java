@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ace.estore.userprofile.exception.ResourceAlreadyExistsException;
 import com.ace.estore.userprofile.exception.ResourceNotFoundException;
@@ -19,12 +21,14 @@ import com.ace.estore.userprofile.request.dto.UserRequestDto;
 import com.ace.estore.userprofile.response.ApiResponse;
 import com.ace.estore.userprofile.service.UserProfileService;
 
+@RestController
+@RequestMapping("/v1/ups")
 public class UserProfileController {
 
 	@Autowired
 	public UserProfileService profileService;
 
-	@PostMapping("/register")
+	@PostMapping
 	public ResponseEntity<ApiResponse> createUser(@RequestBody(required = true) UserRequestDto userDto)
 			throws ResourceAlreadyExistsException, ValidationException {
 		return new ResponseEntity<>(profileService.createNewUser(userDto, null), HttpStatus.CREATED);
@@ -56,7 +60,7 @@ public class UserProfileController {
 	/*
 	 * JWT protected
 	 */
-	@PutMapping("/update/{userID}")
+	@PutMapping("/{userID}")
 	public ResponseEntity<ApiResponse> updateUser(@RequestBody UserRequestDto userDto,
 			@PathVariable("userID") Long userID) throws ValidationException {
 		return new ResponseEntity<>(profileService.updateUser(userDto, null), HttpStatus.OK);

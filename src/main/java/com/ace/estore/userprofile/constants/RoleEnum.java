@@ -2,23 +2,29 @@ package com.ace.estore.userprofile.constants;
 
 public enum RoleEnum {
 
-	CUSTOMER("CUSTOMER", "CUS"), STORE_ASSOCIATE("STORE ASSOCIATE", "SAS"), STORE_ADMIN("STORE ADMIN", "SAD"),
-	STORE_MANAGER("STORE MANAGER", "SMA");
+	CUSTOMER(1L, "CUSTOMER", "CUS"), STORE_ASSOCIATE(2L, "STORE ASSOCIATE", "SAS"),
+	STORE_ADMIN(3L, "STORE ADMIN", "SAD"), STORE_MANAGER(4L, "STORE MANAGER", "SMA");
 
-	private final String role;
-	private final String roleKey;
+	private final Long roleId;
+	private final String roleCode;
+	private final String roleName;
 
-	RoleEnum(String key, String value) {
-		this.role = key;
-		this.roleKey = value;
+	RoleEnum(Long roleId, String roleKey, String roleName) {
+		this.roleCode = roleKey;
+		this.roleName = roleName;
+		this.roleId = roleId;
 	}
 
-	public String getKey() {
-		return role;
+	public String getRoleCode() {
+		return roleCode;
 	}
 
-	public String getValue() {
-		return roleKey;
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public Long getRoleId() {
+		return roleId;
 	}
 
 }

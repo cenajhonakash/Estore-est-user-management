@@ -1,8 +1,5 @@
 package com.ace.estore.userprofile.response.dto;
 
-import java.time.LocalDateTime;
-import java.util.Set;
-
 import com.ace.estore.userprofile.response.BaseResponseDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -25,9 +22,10 @@ public class UserResponseDto extends BaseResponseDto {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private Set<RoleResponseDto> roles;
+	// private Set<String> roles;
 	private String gender;
-	private LocalDateTime createdDate;
+	private String createdDate;
+	private String updatedDate;
 	private Boolean enabled;
 	private String phone;
 	private String imageURL;

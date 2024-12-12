@@ -5,5 +5,5 @@ import java.util.Set;
 
 public class ApplicationConstants {
 	public static final DateTimeFormatter DT_FORMATTER_MS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-	public static final Set<String> DEFAULT_ROLES = Set.of(RoleEnum.CUSTOMER.getValue());
+	public static final Set<Long> DEFAULT_ROLES = Set.of(RoleEnum.CUSTOMER.getRoleId());
 }

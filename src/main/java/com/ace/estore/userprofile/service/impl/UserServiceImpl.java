@@ -3,13 +3,15 @@ package com.ace.estore.userprofile.service.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ace.estore.userprofile.constants.ApplicationConstants;
+import com.ace.estore.userprofile.constants.RoleEnum;
+import com.ace.estore.userprofile.entity.Role;
 import com.ace.estore.userprofile.entity.UserProfile;
 import com.ace.estore.userprofile.entity.UserRole;
 import com.ace.estore.userprofile.mapper.UserProfileMapper;
@@ -21,6 +23,7 @@ import com.ace.estore.userprofile.response.ApiResponse;
 import com.ace.estore.userprofile.response.FailureResponse;
 import com.ace.estore.userprofile.service.UserProfileService;
 
+@Service
 public class UserServiceImpl implements UserProfileService {
 
 	@Autowired
@@ -45,8 +48,8 @@ public class UserServiceImpl implements UserProfileService {
 	public ApiResponse createNewUser(UserRequestDto userDto, MultipartFile image) {
 		validateMandatoryFields(userDto);
 		UserProfile user = userReqMapper.dtoToEntity(userDto);
-		user.setRoles(ApplicationConstants.DEFAULT_ROLES.stream().map(role -> UserRole.builder().role(role).build())
-				.collect(Collectors.toSet()));
+		user.setRoles(Set.of(UserRole.builder().role(getDefaultUserRole()).build()));
+
 		UserProfile newUser = userProfileRepository.saveAndFlush(user);
 		return ApiResponse.builder().data(Arrays.asList(userResponseMapper.entityToDto(newUser))).build();
 	}
@@ -70,5 +73,10 @@ public class UserServiceImpl implements UserProfileService {
 		if (!StringUtils.hasLength(userDto.email()))
 			warnings.add("Email is missing");
 		return ApiResponse.builder().failure(FailureResponse.builder().warnings(warnings).build()).build();
+	}
+
+	private Role getDefaultUserRole() {
+		return Role.builder().roleId(RoleEnum.CUSTOMER.getRoleId()).roleName(RoleEnum.CUSTOMER.getRoleName())
+				.roleCode(RoleEnum.CUSTOMER.getRoleCode()).build();
 	}
 }

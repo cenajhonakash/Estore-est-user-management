@@ -13,10 +13,10 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<String>(exc.getMessage(), HttpStatus.NOT_FOUND);
 	}
 
-//	@ExceptionHandler(value = { ResourceExistsException.class })
-//	public ResponseEntity<String> handleResourceExistsException(ResourceExistsException exc) {
-//		return new ResponseEntity<String>(exc.getMessage(), HttpStatus.BAD_REQUEST);
-//	}
+	@ExceptionHandler(value = { ResourceAlreadyExistsException.class })
+	public ResponseEntity<String> handleResourceExistsException(ResourceAlreadyExistsException exc) {
+		return new ResponseEntity<String>(exc.getMessage(), HttpStatus.BAD_REQUEST);
+	}
 
 	@ExceptionHandler(value = { ValidationException.class })
 	public ResponseEntity<String> handleValidationException(ValidationException exc) {
