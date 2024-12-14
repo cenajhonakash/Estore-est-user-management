@@ -7,16 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.ace.estore.userprofile.constants.QueryConstant;
 import com.ace.estore.userprofile.entity.Role;
-import com.ace.estore.userprofile.response.dto.UserRoleDetailsDto;
+import com.ace.estore.userprofile.response.dto.UserDetailsDto;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
 	@Query(value = QueryConstant.FETCH_USER_AND_ROLE_DETAILS_BY_ROLE_NAME)
-	List<UserRoleDetailsDto> fetchUsersForRoleName(String roleName);
+	List<UserDetailsDto> fetchUsersForRoleName(String roleName);
 
 	@Query(value = QueryConstant.FETCH_USER_AND_ROLE_DETAILS_BY_ROLE_CODE)
-	List<UserRoleDetailsDto> fetchUsersForRoleCode(String roleCode);
+	List<UserDetailsDto> fetchUsersForRoleCode(String roleCode);
 
 	@Query(value = QueryConstant.FETCH_USER_AND_ROLE_DETAILS_BY_ROLE_ID)
-	List<UserRoleDetailsDto> fetchUsersForRoleId(String roleId);
+	List<UserDetailsDto> fetchUsersForRoleId(String roleId);
 }

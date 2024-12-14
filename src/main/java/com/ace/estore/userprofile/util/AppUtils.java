@@ -13,4 +13,7 @@ public class AppUtils {
 		return LocalDateTime.parse(date, ApplicationConstants.DT_FORMATTER_MS);
 	}
 
+	public static LocalDateTime getCurrentDateTime() {
+		return LocalDateTime.now();
+	}
 }

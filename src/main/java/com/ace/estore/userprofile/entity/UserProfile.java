@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
+import com.ace.estore.userprofile.util.AppUtils;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,13 +23,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
+@Getter
+@Setter
 @Entity
 @Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Getter
-@Setter
 public class UserProfile {
 
 	@Id
@@ -48,12 +50,18 @@ public class UserProfile {
 
 	@Column(nullable = false)
 	private String phone;
-
 	private String imageURL;
 	private String about;
+	private String gender;
 
 	private Boolean enabled;
+
+//	@JsonSerialize(using = LocalDateTimeSerializer.class)
+//	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd
+	// HH:mm:ss.SSS")
 	private LocalDateTime createdDate;
+	// @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime updatedDate;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
@@ -61,7 +69,7 @@ public class UserProfile {
 
 	@PrePersist
 	private void setcreatedDate() {
-		this.createdDate = LocalDateTime.now();
+		this.createdDate = AppUtils.getCurrentDateTime();
 		if (Objects.isNull(this.enabled))
 			this.enabled = true;
 		if (Objects.nonNull(this.roles))
@@ -70,6 +78,6 @@ public class UserProfile {
 
 	@PreUpdate
 	private void setUpdatedDate() {
-		this.updatedDate = LocalDateTime.now();
+		this.updatedDate = AppUtils.getCurrentDateTime();
 	}
 }

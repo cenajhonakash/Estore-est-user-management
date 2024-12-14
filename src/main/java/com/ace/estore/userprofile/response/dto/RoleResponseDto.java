@@ -19,5 +19,5 @@ import lombok.NoArgsConstructor;
 @JsonInclude(Include.NON_NULL)
 @EqualsAndHashCode(callSuper = false)
 public class RoleResponseDto extends BaseResponseDto {
-	private List<UserRoleDetailsDto> users;
+	private List<UserDetailsDto> users;
 }
